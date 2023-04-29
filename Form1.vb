@@ -354,8 +354,13 @@ Public Class Form1
         NumericUpDownPic.UpButton()
     End Sub
 
+    Dim NumericUpDownPic_hold = False
+
     Private Sub NumericUpDownPic_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDownPic.ValueChanged
-        SendUdp("modeone=" & NumericUpDownPic.Value)
+        If NumericUpDownPic_hold Then
+            SendUdp("modeone=" & NumericUpDownPic.Value)
+        End If
+        NumericUpDownPic_hold = True
     End Sub
 
     Private Sub ButtonModeSpiffs_Click(sender As Object, e As EventArgs) Handles ButtonModeSpiffs.Click
@@ -577,26 +582,37 @@ Public Class Form1
         End If
     End Sub
 
+    Private Sub sendfw(ByVal ip As String)
+        Try
+            Dim fi As IO.FileInfo = My.Computer.FileSystem.GetFileInfo(fwpath)
+            Dim client As New WebClient
+            AddHandler client.UploadProgressChanged, AddressOf webClient_UploadFileProgressChanged
+            AddHandler client.UploadFileCompleted, AddressOf webClient_UploadFileCompleted
+            client.UploadFileAsync(New Uri("http://" & ip & "/update"), fi.FullName)
+        Catch ex As System.Net.Sockets.SocketException
+            Debug.WriteLine(ex.Message)
+            TextBoxAnsw.AppendText(ip & " not response" & vbCrLf)
+        End Try
+    End Sub
+
     Private Sub ButtonSendFw_Click(sender As Object, e As EventArgs) Handles ButtonSendFw.Click
         If File.Exists(fwpath) = False Then
             MsgBox("Укажите файл")
             Debug.WriteLine("no file " & fwpath)
             Return
         End If
-        Dim fi As IO.FileInfo = My.Computer.FileSystem.GetFileInfo(fwpath)
-        Dim client As New WebClient
-        AddHandler client.UploadProgressChanged, AddressOf webClient_UploadFileProgressChanged
-        AddHandler client.UploadFileCompleted, AddressOf webClient_UploadFileCompleted
         If My.Computer.Keyboard.CtrlKeyDown Then
+            Dim ips = ListBoxIp.Items.Count, ipn = 0
+            Dim clients(ips) As WebClient
             For Each item As IpItem In ListBoxIp.Items
-                client.UploadFileAsync(New Uri("http://" & item.strValue & "/update"), fi.FullName)
+                sendfw(item.strValue)
             Next
         Else
             If TextBoxIp.Text.Length = 0 Or My.Computer.Network.Ping(TextBoxIp.Text) = False Then
                 MsgBox("IP адрес не отвечает")
                 Return
             End If
-            client.UploadFileAsync(New Uri("http://" & TextBoxIp.Text & "/update"), fi.FullName)
+            sendfw(TextBoxIp.Text)
         End If
     End Sub
     Private Sub webClient_UploadFileCompleted(ByVal sender As Object, ByVal e As UploadFileCompletedEventArgs)
