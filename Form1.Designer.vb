@@ -67,6 +67,9 @@ Partial Class Form1
         Me.ButtonName = New System.Windows.Forms.Button()
         Me.ButtonGetPics = New System.Windows.Forms.Button()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.ButtonFoldAdd = New System.Windows.Forms.Button()
+        Me.ButtonFoldSub = New System.Windows.Forms.Button()
+        Me.ButtonModeFold = New System.Windows.Forms.Button()
         Me.NumericUpDownProg = New System.Windows.Forms.NumericUpDown()
         Me.ButtonStop2 = New System.Windows.Forms.Button()
         Me.ButtonProgAdd = New System.Windows.Forms.Button()
@@ -109,6 +112,7 @@ Partial Class Form1
         Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
         Me.ToolStripStatusLabel1 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ButtonDebug = New System.Windows.Forms.Button()
+        Me.NumericUpDownFold = New System.Windows.Forms.NumericUpDown()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         CType(Me.NumericUpDownBpm, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -121,6 +125,7 @@ Partial Class Form1
         Me.GroupBoxLoad.SuspendLayout()
         Me.GroupBox3.SuspendLayout()
         Me.StatusStrip1.SuspendLayout()
+        CType(Me.NumericUpDownFold, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'TextBoxImgPath
@@ -527,6 +532,10 @@ Partial Class Form1
         '
         'GroupBox2
         '
+        Me.GroupBox2.Controls.Add(Me.NumericUpDownFold)
+        Me.GroupBox2.Controls.Add(Me.ButtonFoldAdd)
+        Me.GroupBox2.Controls.Add(Me.ButtonFoldSub)
+        Me.GroupBox2.Controls.Add(Me.ButtonModeFold)
         Me.GroupBox2.Controls.Add(Me.NumericUpDownProg)
         Me.GroupBox2.Controls.Add(Me.ButtonStop2)
         Me.GroupBox2.Controls.Add(Me.ButtonProgAdd)
@@ -561,9 +570,36 @@ Partial Class Form1
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Управление"
         '
+        'ButtonFoldAdd
+        '
+        Me.ButtonFoldAdd.Location = New System.Drawing.Point(174, 172)
+        Me.ButtonFoldAdd.Name = "ButtonFoldAdd"
+        Me.ButtonFoldAdd.Size = New System.Drawing.Size(24, 23)
+        Me.ButtonFoldAdd.TabIndex = 43
+        Me.ButtonFoldAdd.Text = ">"
+        Me.ButtonFoldAdd.UseVisualStyleBackColor = True
+        '
+        'ButtonFoldSub
+        '
+        Me.ButtonFoldSub.Location = New System.Drawing.Point(95, 173)
+        Me.ButtonFoldSub.Name = "ButtonFoldSub"
+        Me.ButtonFoldSub.Size = New System.Drawing.Size(27, 23)
+        Me.ButtonFoldSub.TabIndex = 42
+        Me.ButtonFoldSub.Text = "<"
+        Me.ButtonFoldSub.UseVisualStyleBackColor = True
+        '
+        'ButtonModeFold
+        '
+        Me.ButtonModeFold.Location = New System.Drawing.Point(53, 173)
+        Me.ButtonModeFold.Name = "ButtonModeFold"
+        Me.ButtonModeFold.Size = New System.Drawing.Size(39, 23)
+        Me.ButtonModeFold.TabIndex = 41
+        Me.ButtonModeFold.Text = "Fold"
+        Me.ButtonModeFold.UseVisualStyleBackColor = True
+        '
         'NumericUpDownProg
         '
-        Me.NumericUpDownProg.Location = New System.Drawing.Point(127, 143)
+        Me.NumericUpDownProg.Location = New System.Drawing.Point(127, 144)
         Me.NumericUpDownProg.Maximum = New Decimal(New Integer() {15, 0, 0, 0})
         Me.NumericUpDownProg.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NumericUpDownProg.Name = "NumericUpDownProg"
@@ -610,7 +646,7 @@ Partial Class Form1
         '
         'ButtonFormat
         '
-        Me.ButtonFormat.Location = New System.Drawing.Point(47, 231)
+        Me.ButtonFormat.Location = New System.Drawing.Point(73, 232)
         Me.ButtonFormat.Name = "ButtonFormat"
         Me.ButtonFormat.Size = New System.Drawing.Size(106, 23)
         Me.ButtonFormat.TabIndex = 35
@@ -620,24 +656,24 @@ Partial Class Form1
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(47, 212)
+        Me.Label9.Location = New System.Drawing.Point(6, 229)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(106, 13)
+        Me.Label9.Size = New System.Drawing.Size(60, 26)
         Me.Label9.TabIndex = 34
-        Me.Label9.Text = "Файловая система"
+        Me.Label9.Text = "Файловая" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "  система"
         '
         'ButtonConfigReset
         '
-        Me.ButtonConfigReset.Location = New System.Drawing.Point(108, 185)
+        Me.ButtonConfigReset.Location = New System.Drawing.Point(154, 203)
         Me.ButtonConfigReset.Name = "ButtonConfigReset"
-        Me.ButtonConfigReset.Size = New System.Drawing.Size(75, 23)
+        Me.ButtonConfigReset.Size = New System.Drawing.Size(48, 23)
         Me.ButtonConfigReset.TabIndex = 33
-        Me.ButtonConfigReset.Text = "Сбросить"
+        Me.ButtonConfigReset.Text = "Сброс"
         Me.ButtonConfigReset.UseVisualStyleBackColor = True
         '
         'ButtonConfigSave
         '
-        Me.ButtonConfigSave.Location = New System.Drawing.Point(27, 185)
+        Me.ButtonConfigSave.Location = New System.Drawing.Point(73, 202)
         Me.ButtonConfigSave.Name = "ButtonConfigSave"
         Me.ButtonConfigSave.Size = New System.Drawing.Size(75, 23)
         Me.ButtonConfigSave.TabIndex = 32
@@ -647,7 +683,7 @@ Partial Class Form1
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(70, 170)
+        Me.Label7.Location = New System.Drawing.Point(4, 206)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(62, 13)
         Me.Label7.TabIndex = 31
@@ -946,6 +982,16 @@ Partial Class Form1
         Me.ButtonDebug.Text = "Debug"
         Me.ButtonDebug.UseVisualStyleBackColor = True
         '
+        'NumericUpDownFold
+        '
+        Me.NumericUpDownFold.Location = New System.Drawing.Point(127, 174)
+        Me.NumericUpDownFold.Maximum = New Decimal(New Integer() {15, 0, 0, 0})
+        Me.NumericUpDownFold.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NumericUpDownFold.Name = "NumericUpDownFold"
+        Me.NumericUpDownFold.Size = New System.Drawing.Size(41, 20)
+        Me.NumericUpDownFold.TabIndex = 44
+        Me.NumericUpDownFold.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -963,7 +1009,7 @@ Partial Class Form1
         Me.MaximizeBox = False
         Me.Name = "Form1"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "RamLedPoi Конфигуратор v0.07"
+        Me.Text = "RamLedPoi Конфигуратор v0.08"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
@@ -981,6 +1027,7 @@ Partial Class Form1
         Me.GroupBox3.PerformLayout()
         Me.StatusStrip1.ResumeLayout(False)
         Me.StatusStrip1.PerformLayout()
+        CType(Me.NumericUpDownFold, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1071,5 +1118,9 @@ Partial Class Form1
     Friend WithEvents ButtonMacDel As System.Windows.Forms.Button
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents ButtonFtpOpen As System.Windows.Forms.Button
+    Friend WithEvents ButtonModeFold As System.Windows.Forms.Button
+    Friend WithEvents ButtonFoldAdd As System.Windows.Forms.Button
+    Friend WithEvents ButtonFoldSub As System.Windows.Forms.Button
+    Friend WithEvents NumericUpDownFold As System.Windows.Forms.NumericUpDown
 
 End Class

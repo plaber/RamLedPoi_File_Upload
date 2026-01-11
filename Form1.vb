@@ -371,6 +371,10 @@ Public Class Form1
         SendUdp("mode=4")
     End Sub
 
+    Private Sub ButtonModeFold_Click(sender As Object, e As EventArgs) Handles ButtonModeFold.Click
+        SendUdp("mode=5")
+    End Sub
+
     Private Sub ButtonProgSub_Click(sender As Object, e As EventArgs) Handles ButtonProgSub.Click
         SendUdp("prg=m")
     End Sub
@@ -386,6 +390,23 @@ Public Class Form1
             SendUdp("prg=" & NumericUpDownProg.Value)
         End If
         NumericUpDownProg_hold = True
+    End Sub
+
+    Private Sub ButtonFoldSub_Click(sender As Object, e As EventArgs) Handles ButtonFoldSub.Click
+        SendUdp("fld=m")
+    End Sub
+
+    Private Sub ButtonFoldAdd_Click(sender As Object, e As EventArgs) Handles ButtonFoldAdd.Click
+        SendUdp("fld=p")
+    End Sub
+
+    Dim NumericUpDownFold_hold = False
+
+    Private Sub NumericUpDownFold_ValueChanged(sender As Object, e As EventArgs) Handles NumericUpDownFold.ValueChanged
+        If NumericUpDownFold_hold Then
+            SendUdp("fld=" & NumericUpDownFold.Value)
+        End If
+        NumericUpDownFold_hold = True
     End Sub
 
     Private Sub ButtonConfigSave_Click(sender As Object, e As EventArgs) Handles ButtonConfigSave.Click
@@ -573,7 +594,7 @@ Public Class Form1
             TextBoxAnsw.AppendText("выбран " & fwpath & vbCrLf)
             Return
         End If
-        OpenFileDialog1.Filter = "binary|*.bin|txt files|*.txt"
+        OpenFileDialog1.Filter = "binary|*.bin|bin gz|*.bin.gz|txt files|*.txt"
         Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
         If OpenFileDialog1.ShowDialog() = Windows.Forms.DialogResult.OK Then
             fwpath = OpenFileDialog1.FileName
